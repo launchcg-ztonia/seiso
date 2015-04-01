@@ -241,6 +241,28 @@ begin
 end $$
 delimiter ;
 
+delimiter $$
+drop procedure if exists label_node $$
+create procedure label_node(
+  in node_name varchar(80),
+  in label_name varchar(80))
+
+  begin
+    declare _meta_id int(10) unsigned;
+    
+    set _meta_id = (select meta_id
+                      from node
+                     where node.name = node_name);
+    if _meta_id is null then
+      insert into meta (id) values (0);
+      set _meta_id = ( select LAST_INSERT_ID() );
+      update node set node.meta_id = _meta_id where node.name = node_name;
+    end if;
+    insert into label (name, meta_id) values (label_name, _meta_id)
+        on duplicate key
+           update meta_id = values(meta_id);
+  end $$
+delimiter ;
 
 -- =====================================================================================================================
 -- Les données
@@ -512,6 +534,10 @@ call create_nodes('air-booking-acc', 2, 'airbook', 'acc', '6.0.2', 17);
 call create_nodes('air-booking-perf', 2, 'airbook', 'perf', '6.0.2', 19);
 call create_nodes('air-booking-prod', 4, 'airbook', 'prod', '6.0.1', 21);
 call create_nodes('air-booking-dr', 4, 'airbook', 'dr', '6.0.1', 25);
+call label_node('airbook001-prod', 'Deploy Group A');
+call label_node('airbook003-prod', 'Deploy Group A');
+call label_node('airbook002-prod', 'Deploy Group B');
+call label_node('airbook004-prod', 'Deploy Group B');
 
 -- Car Shopping
 call create_nodes('car-shopping-int', 2, 'carshop', 'int', '1.21.0', 29);
@@ -554,6 +580,18 @@ call create_nodes('hotel-booking-acc', 2, 'hotelbook', 'acc', '3.1.2', 11020);
 call create_nodes('hotel-booking-perf', 2, 'hotelbook', 'perf', '3.1.2', 11040);
 call create_nodes('hotel-booking-prod', 30, 'hotelbook', 'prod', '3.1.1', 11200);
 call create_nodes('hotel-booking-dr', 30, 'hotelbook', 'dr', '3.1.1', 11600);
+call label_node('hotelbook001-prod', 'Deploy Group A');
+call label_node('hotelbook003-prod', 'Deploy Group A');
+call label_node('hotelbook005-prod', 'Deploy Group A');
+call label_node('hotelbook007-prod', 'Deploy Group A');
+call label_node('hotelbook009-prod', 'Deploy Group A');
+call label_node('hotelbook011-prod', 'Deploy Group A');
+call label_node('hotelbook002-prod', 'Deploy Group B');
+call label_node('hotelbook004-prod', 'Deploy Group B');
+call label_node('hotelbook006-prod', 'Deploy Group B');
+call label_node('hotelbook008-prod', 'Deploy Group B');
+call label_node('hotelbook010-prod', 'Deploy Group B');
+call label_node('hotelbook012-prod', 'Deploy Group B');
 
 -- Autogenerate NIPs
 insert into

@@ -47,4 +47,7 @@ public interface NodeRepo extends PagingAndSortingRepository<Node, Long>, NodeRe
 	
 	@RestResource(path = "find-by-source")
 	Page<Node> findBySourceKey(@Param("key") String key, Pageable pageable);
+	
+//	@RestResource(path = "find-by-label")
+//	Page<Node> findByLabel(@Param("label") String label, Pageable pageable);
 }

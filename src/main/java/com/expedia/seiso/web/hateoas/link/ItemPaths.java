@@ -34,6 +34,8 @@ import com.expedia.seiso.domain.entity.Item;
 import com.expedia.seiso.domain.entity.LoadBalancer;
 import com.expedia.seiso.domain.entity.Machine;
 import com.expedia.seiso.domain.entity.Node;
+import com.expedia.seiso.domain.entity.Meta;
+import com.expedia.seiso.domain.entity.Label;
 import com.expedia.seiso.domain.entity.NodeIpAddress;
 import com.expedia.seiso.domain.entity.Person;
 import com.expedia.seiso.domain.entity.Region;
@@ -94,6 +96,10 @@ public class ItemPaths {
 				(Item item) -> new String[] { RepoKeys.MACHINES, ((Machine) item).getName() });
 		converters.put(Node.class,
 				(Item item) -> new String[] { RepoKeys.NODES, ((Node) item).getName() });
+		converters.put(Meta.class,
+				(Item item) -> new String[] { RepoKeys.META, String.valueOf(((Meta) item).getId()) });
+		converters.put(Label.class,
+				(Item item) -> new String[] { RepoKeys.LABELS, String.valueOf(((Label) item).getId()) });
 		converters.put(NodeIpAddress.class,
 				(Item item) -> {
 					NodeIpAddress nip = (NodeIpAddress) item;

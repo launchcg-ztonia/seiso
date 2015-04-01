@@ -21,6 +21,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -89,7 +90,8 @@ import com.expedia.seiso.web.ApiVersion;
 			"ipAddresses.endpoints.port",
 			"ipAddresses.endpoints.rotationStatus.statusType",
 			"ipAddresses.ipAddressRole",
-			"healthStatus.statusType"
+			"healthStatus.statusType",
+			"meta.labels"
 			}),
 
 	@Projection(apiVersions = ApiVersion.V1, cardinality = Cardinality.SINGLE, name = "state", paths = {
@@ -135,7 +137,12 @@ public class Node extends AbstractItem {
 	@JoinColumn(name = "health_status_id")
 	@RestResource(path = "health-status")
 	private HealthStatus healthStatus;
-
+	
+	@OneToOne
+	@JoinColumn(name = "meta_id")
+	@RestResource(path = "meta")
+	private Meta meta;
+	
 	@Override
 	public ItemKey itemKey() {
 		return new SimpleItemKey(Node.class, name);

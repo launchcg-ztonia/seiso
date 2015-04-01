@@ -32,6 +32,8 @@ public interface RepoKeys {
 	public static final String MACHINES = "machines";
 	public static final String NODE_IP_ADDRESSES = "node-ip-addresses";
 	public static final String NODES = "nodes";
+	public static final String META = "meta";
+	public static final String LABELS = "labels";
 	public static final String PEOPLE = "people";
 	public static final String REGIONS = "regions";
 	public static final String ROTATION_STATUSES = "rotation-statuses";
