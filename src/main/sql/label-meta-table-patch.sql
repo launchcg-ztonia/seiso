@@ -37,9 +37,18 @@ CREATE TABLE `label` (
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-ALTER TABLE `node` (
-  ADD COLUMN `meta_id` int(10) unsigned DEFAULT NULL AFTER `health_status_id`,
-  ADD KEY `meta_id` (`meta_id`),
-  ADD CONSTRAINT `node_meta_id` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ALTER TABLE `node`
+ADD `meta_id` int(10) unsigned DEFAULT NULL AFTER `health_status_id`;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+ALTER TABLE `node`
+ADD INDEX `meta_id` (`meta_id`);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+ALTER TABLE `node`
+ADD CONSTRAINT `node_meta_id` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`);
 /*!40101 SET character_set_client = @saved_cs_client */;
