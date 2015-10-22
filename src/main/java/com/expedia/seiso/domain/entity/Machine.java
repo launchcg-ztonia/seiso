@@ -53,7 +53,7 @@ import com.expedia.serf.ann.RestResource;
 @Entity
 //@formatter:off
 @Projections({
-	@Projection(cardinality = Cardinality.COLLECTION, paths = {}),
+	@Projection(cardinality = Cardinality.COLLECTION, paths = { "dataCenter" }),
 	@Projection(cardinality = Cardinality.SINGLE, paths = { "dataCenter", "nodes.serviceInstance" })
 	})
 //@formatter:on
